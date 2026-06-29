@@ -1,0 +1,39 @@
+{
+  "schema_version": 2,
+  "seed": 42,
+  "test_size": 0.2,
+  "counts": {
+    "source": 10000,
+    "train": 8000,
+    "test": 2000
+  },
+  "source_id_sha256": "1421c2f59dcbe9437bf31f56eb103f6055e4b3e80c4889d343f1c3489b0bfc6e",
+  "split_id_sha256": {
+    "train": "c5e3169d76a39b5cfc6e07634eaa9d75e53bcbb44fc69960a2fd6334cdabfeee",
+    "test": "3483803ba504f49d7437815e2d48d1d1f9930531ba6309e06a7578fee08c03df"
+  },
+  "trajectory_columns": [
+    "timestep_ms",
+    "x",
+    "y",
+    "z"
+  ],
+  "label_columns": [
+    "hit_r001",
+    "hit_r002",
+    "hit_r003",
+    "hit_r004",
+    "hit_r005"
+  ],
+  "dataset_columns": [
+    "timestep_ms",
+    "x",
+    "y",
+    "z",
+    "hit_r001",
+    "hit_r002",
+    "hit_r003",
+    "hit_r004",
+    "hit_r005"
+  ]
+}
