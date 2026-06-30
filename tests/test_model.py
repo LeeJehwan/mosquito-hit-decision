@@ -7,14 +7,25 @@ from lightgbm import LGBMClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from src.config import LightGBMConfig, LogisticRegressionConfig
+from src.config import EnsembleConfig, LightGBMConfig, LogisticRegressionConfig
 from src.model import (
+    SoftVotingEnsemble,
     create_model,
     load_model,
     predict_hit_probabilities,
     save_model,
     train_model,
 )
+
+
+def small_ensemble_config() -> EnsembleConfig:
+    return EnsembleConfig(
+        n_estimators=2,
+        hist_max_iter=5,
+        mlp_hidden=(8,),
+        mlp_max_iter=50,
+        mlp_early_stopping=False,
+    )
 
 
 def make_binary_dataset() -> tuple[pd.DataFrame, pd.Series]:
@@ -31,11 +42,14 @@ def make_binary_dataset() -> tuple[pd.DataFrame, pd.Series]:
 def test_model_factory_creates_supported_model_types() -> None:
     lightgbm = create_model("lightgbm", LightGBMConfig(n_estimators=2), seed=42)
     logistic = create_model("logistic", LogisticRegressionConfig(max_iter=200), seed=42)
+    ensemble = create_model("ensemble", small_ensemble_config(), seed=42)
 
     assert isinstance(lightgbm, LGBMClassifier)
     assert isinstance(logistic, Pipeline)
     assert isinstance(logistic.named_steps["scaler"], StandardScaler)
     assert logistic.named_steps["classifier"].class_weight is None
+    assert isinstance(ensemble, SoftVotingEnsemble)
+    assert len(ensemble.estimators) == 3
 
 
 @pytest.mark.parametrize(
@@ -43,6 +57,7 @@ def test_model_factory_creates_supported_model_types() -> None:
     [
         ("lightgbm", LightGBMConfig(n_estimators=2)),
         ("logistic", LogisticRegressionConfig(max_iter=200)),
+        ("ensemble", small_ensemble_config()),
     ],
 )
 def test_models_predict_probabilities_and_survive_round_trip(

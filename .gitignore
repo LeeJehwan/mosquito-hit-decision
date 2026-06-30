@@ -2,9 +2,12 @@
 .pytest_cache/
 .uv-cache/
 .venv/
+.tools/
 __pycache__/
 *.py[cod]
 
 open
 outputs
 artifacts
+runs
+.feature_cache/

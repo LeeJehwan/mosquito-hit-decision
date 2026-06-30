@@ -36,6 +36,16 @@ def test_logistic_model_uses_distinct_default_filename() -> None:
     assert inference_paths.model == output / "hit_logistic.pkl"
 
 
+def test_ensemble_model_uses_distinct_default_filename() -> None:
+    output = Path("runs/ensemble_01")
+
+    train_paths = resolve_train_output_paths(output=output, model_type="ensemble")
+    inference_paths = resolve_inference_paths(output=output, model_type="ensemble")
+
+    assert train_paths.model == output / "hit_ensemble.pkl"
+    assert inference_paths.model == output / "hit_ensemble.pkl"
+
+
 def test_explicit_path_overrides_output_directory() -> None:
     explicit_model = Path("shared/model.pkl")
 
