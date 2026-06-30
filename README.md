@@ -1,6 +1,6 @@
 # Mosquito Hit Decision
 
-과거 400ms의 3D 궤적으로 80ms 뒤의 명중 가능성과 발사 여부를 예측하는 이진 분류 baseline이다. LightGBM과 Logistic Regression을 지원한다.
+과거 400ms의 3D 궤적으로 80ms 뒤의 명중 가능성과 발사 여부를 예측하는 이진 분류 baseline이다. LightGBM, Logistic Regression, 그리고 시뮬레이션 1위 방법론인 Ensemble을 지원한다.
 
 ## Setup
 
@@ -46,6 +46,15 @@ Logistic Regression은 다음과 같이 선택한다. 위치·속도·가속도 
 uv run python train.py --dataset-dir dataset --radius 0.05 \
   --model-type logistic --output runs/logistic_01
 ```
+
+Ensemble은 방법론 비교 시뮬레이션에서 가장 높은 점수를 낸 1위 모델이다. LightGBM + HistGradientBoosting + MLP의 확률을 평균하는 소프트보팅이며, `--model-type ensemble`이면 학습·추론이 자동으로 물리 기반 advanced 특징(외삽-백테스트 등, `src/features_advanced.py`)을 사용한다. 산출물은 `hit_ensemble.pkl`로 저장된다.
+
+```bash
+uv run python train.py --dataset-dir dataset --radius 0.05 \
+  --model-type ensemble --output runs/ensemble_01
+```
+
+방법론 비교 실험과 상세 분석(앙상블이 baseline LightGBM을 이긴 이유 등)은 `experiments/`와 `experiments/RESULT.md`를 참고한다.
 
 학습은 `dataset/train/`만 읽는다. 8,000개를 기본적으로 6,400개 학습/1,600개 검증으로 층화 분할하고, 검증 데이터에서 threshold를 선택한 뒤 최종 모델은 8,000개 전체로 학습한다. 특징은 각 방법론이 고정 궤적 데이터에서 생성한다. 지원 반경은 `0.01`, `0.02`, `0.03`, `0.04`, `0.05`이다.
 

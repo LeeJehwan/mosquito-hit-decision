@@ -61,8 +61,8 @@ def test_output_directory_is_available_for_train_and_infer() -> None:
     train_args = build_train_parser().parse_args(["--output", "runs/experiment_01"])
     infer_args = build_infer_parser().parse_args(["--output", "runs/experiment_01"])
 
-    assert str(train_args.output) == "runs/experiment_01"
-    assert str(infer_args.output) == "runs/experiment_01"
+    assert train_args.output.parts == ("runs", "experiment_01")
+    assert infer_args.output.parts == ("runs", "experiment_01")
 
 
 def test_progress_is_enabled_by_default_and_can_be_disabled() -> None:

@@ -1,8 +1,9 @@
 from src.args import parse_train_args
-from src.config import LightGBMConfig, LogisticRegressionConfig
+from src.config import ENSEMBLE_MODEL_DEFAULTS, LightGBMConfig, LogisticRegressionConfig
 from src.data_io import save_json
 from src.dataset import load_prepared_trajectories, radius_to_label, split_train_validation
 from src.features import build_feature_frame
+from src.features_advanced import build_feature_frame_advanced
 from src.metrics import evaluate_predictions, find_best_threshold, make_threshold_candidates
 from src.model import create_model, predict_hit_probabilities, save_model, train_model
 from src.paths import resolve_train_output_paths
@@ -23,7 +24,16 @@ def validate_train_args(args) -> None:
         raise ValueError("num-leaves must exceed 1 and n-estimators must be positive")
 
 
-def make_model_config(args) -> LightGBMConfig | LogisticRegressionConfig:
+def build_features_for(model_type, trajectories, show_progress):
+    # 앙상블(1위 방법론)은 외삽-백테스트 등 물리 기반 특징까지 사용한다.
+    if model_type == "ensemble":
+        return build_feature_frame_advanced(trajectories, show_progress=show_progress)
+    return build_feature_frame(trajectories, show_progress=show_progress)
+
+
+def make_model_config(args):
+    if args.model_type == "ensemble":
+        return ENSEMBLE_MODEL_DEFAULTS
     if args.model_type == "logistic":
         return LogisticRegressionConfig(
             C=args.logistic_c,
@@ -71,7 +81,7 @@ def main() -> None:
         split="train",
         show_progress=args.progress,
     )
-    feature_frame = build_feature_frame(trajectories, show_progress=args.progress)
+    feature_frame = build_features_for(args.model_type, trajectories, args.progress)
     dataset = feature_frame.merge(labels, on="id", validate="one_to_one")
     feature_columns = [column for column in feature_frame.columns if column != "id"]
     label_column = radius_to_label(args.radius)

@@ -30,6 +30,8 @@ def _model_output_for_type(model_type: str) -> Path:
         raise ValueError(f"Unsupported model type: {model_type}")
     if model_type == "logistic":
         return PATH_DEFAULTS.logistic_model_output
+    if model_type == "ensemble":
+        return PATH_DEFAULTS.ensemble_model_output
     return PATH_DEFAULTS.model_output
 
 

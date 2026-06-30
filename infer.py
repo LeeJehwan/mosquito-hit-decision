@@ -4,6 +4,7 @@ from src.args import parse_infer_args
 from src.data_io import load_json, save_dataframe, save_json
 from src.dataset import load_prepared_trajectories, radius_to_label
 from src.features import align_feature_columns, build_feature_frame
+from src.features_advanced import build_feature_frame_advanced
 from src.labels import build_aim_frame
 from src.metrics import evaluate_predictions, probabilities_to_decisions
 from src.model import load_model, predict_hit_probabilities
@@ -54,7 +55,10 @@ def main() -> None:
         split="test",
         show_progress=args.progress,
     )
-    feature_frame = build_feature_frame(trajectories, show_progress=args.progress)
+    if args.model_type == "ensemble":
+        feature_frame = build_feature_frame_advanced(trajectories, show_progress=args.progress)
+    else:
+        feature_frame = build_feature_frame(trajectories, show_progress=args.progress)
     feature_columns = load_json(paths.features)
     features = align_feature_columns(feature_frame, feature_columns)
     threshold_artifact = load_json(paths.threshold)
