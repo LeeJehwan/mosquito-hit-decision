@@ -11,3 +11,6 @@ outputs
 artifacts
 runs
 .feature_cache/
+.blend_cache/
+.actual_radius_sweep_cache/
+dataset

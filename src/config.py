@@ -12,6 +12,7 @@ class PathConfig:
     model_output: Path = Path("artifacts/hit_lgbm.pkl")
     logistic_model_output: Path = Path("artifacts/hit_logistic.pkl")
     ensemble_model_output: Path = Path("artifacts/hit_ensemble.pkl")
+    weighted_ensemble_model_output: Path = Path("artifacts/hit_weighted_ensemble.pkl")
     feature_output: Path = Path("artifacts/feature_columns.json")
     threshold_output: Path = Path("artifacts/decision_threshold.json")
     metrics_output: Path = Path("outputs/valid_metrics.json")
@@ -23,10 +24,11 @@ class PathConfig:
 class TrainingConfig:
     radius: float = 0.05
     valid_size: float = 0.2
+    cv_folds: int = 5
     seed: int = 42
     threshold_min: float = 0.0
     threshold_max: float = 1.0
-    threshold_step: float = 0.01
+    threshold_step: float = 0.005
 
 
 @dataclass(frozen=True)
@@ -66,15 +68,32 @@ class EnsembleConfig:
     # MLP member (StandardScaler 포함 pipeline)
     mlp_hidden: tuple[int, ...] = (128, 64)
     mlp_alpha: float = 1e-3
+    mlp_batch_size: int = 256
+    mlp_learning_rate_init: float = 1e-3
     mlp_max_iter: int = 300
     mlp_early_stopping: bool = True
     n_jobs: int = -1
 
 
-MODEL_TYPES = ("lightgbm", "logistic", "ensemble")
+@dataclass(frozen=True)
+class WeightedEnsembleConfig(EnsembleConfig):
+    weights: tuple[float, float, float] = (1 / 3, 1 / 3, 1 / 3)
+
+
+WEIGHTED_ENSEMBLE_WEIGHTS_BY_RADIUS = {
+    0.01: (0.50, 0.10, 0.40),
+    0.02: (0.50, 0.20, 0.30),
+    0.03: (0.25, 0.30, 0.45),
+    0.04: (0.20, 0.45, 0.35),
+    0.05: (0.35, 0.55, 0.10),
+}
+
+
+MODEL_TYPES = ("lightgbm", "logistic", "ensemble", "weighted_ensemble")
 DEFAULT_MODEL_TYPE = "lightgbm"
 PATH_DEFAULTS = PathConfig()
 TRAINING_DEFAULTS = TrainingConfig()
 MODEL_DEFAULTS = LightGBMConfig()
 LOGISTIC_MODEL_DEFAULTS = LogisticRegressionConfig()
 ENSEMBLE_MODEL_DEFAULTS = EnsembleConfig()
+WEIGHTED_ENSEMBLE_MODEL_DEFAULTS = WeightedEnsembleConfig()

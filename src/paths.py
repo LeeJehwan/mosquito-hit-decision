@@ -32,6 +32,8 @@ def _model_output_for_type(model_type: str) -> Path:
         return PATH_DEFAULTS.logistic_model_output
     if model_type == "ensemble":
         return PATH_DEFAULTS.ensemble_model_output
+    if model_type == "weighted_ensemble":
+        return PATH_DEFAULTS.weighted_ensemble_model_output
     return PATH_DEFAULTS.model_output
 
 

@@ -14,6 +14,8 @@ def test_train_arguments_override_major_configuration() -> None:
             "0.1",
             "--n-estimators",
             "100",
+            "--cv-folds",
+            "4",
             "--model-type",
             "logistic",
             "--logistic-c",
@@ -27,6 +29,7 @@ def test_train_arguments_override_major_configuration() -> None:
     assert args.threshold == 0.8
     assert args.learning_rate == 0.1
     assert args.n_estimators == 100
+    assert args.cv_folds == 4
     assert args.model_type == "logistic"
     assert args.logistic_c == 0.5
     assert args.logistic_max_iter == 500
@@ -35,6 +38,17 @@ def test_train_arguments_override_major_configuration() -> None:
 def test_lightgbm_is_the_default_model_type() -> None:
     assert build_train_parser().parse_args([]).model_type == "lightgbm"
     assert build_infer_parser().parse_args([]).model_type == "lightgbm"
+
+
+def test_weighted_ensemble_is_available_in_train_and_infer() -> None:
+    assert (
+        build_train_parser().parse_args(["--model-type", "weighted_ensemble"]).model_type
+        == "weighted_ensemble"
+    )
+    assert (
+        build_infer_parser().parse_args(["--model-type", "weighted_ensemble"]).model_type
+        == "weighted_ensemble"
+    )
 
 
 @pytest.mark.parametrize(

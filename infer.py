@@ -55,7 +55,7 @@ def main() -> None:
         split="test",
         show_progress=args.progress,
     )
-    if args.model_type == "ensemble":
+    if args.model_type in {"ensemble", "weighted_ensemble"}:
         feature_frame = build_feature_frame_advanced(trajectories, show_progress=args.progress)
     else:
         feature_frame = build_feature_frame(trajectories, show_progress=args.progress)
