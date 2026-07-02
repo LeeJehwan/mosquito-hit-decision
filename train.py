@@ -1,7 +1,19 @@
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import StratifiedKFold
+from tqdm.auto import tqdm
+
 from src.args import parse_train_args
-from src.config import ENSEMBLE_MODEL_DEFAULTS, LightGBMConfig, LogisticRegressionConfig
+from src.config import (
+    ENSEMBLE_MODEL_DEFAULTS,
+    WEIGHTED_ENSEMBLE_WEIGHTS_BY_RADIUS,
+    EnsembleConfig,
+    LightGBMConfig,
+    LogisticRegressionConfig,
+    WeightedEnsembleConfig,
+)
 from src.data_io import save_json
-from src.dataset import load_prepared_trajectories, radius_to_label, split_train_validation
+from src.dataset import load_prepared_trajectories, radius_to_label
 from src.features import build_feature_frame
 from src.features_advanced import build_feature_frame_advanced
 from src.metrics import evaluate_predictions, find_best_threshold, make_threshold_candidates
@@ -18,6 +30,8 @@ def resolve_train_input_paths(args):
 def validate_train_args(args) -> None:
     if not 0.0 < args.valid_size < 1.0:
         raise ValueError("valid-size must be strictly between 0 and 1")
+    if args.cv_folds < 2:
+        raise ValueError("cv-folds must be at least 2")
     if args.threshold_min > args.threshold_max:
         raise ValueError("threshold-min must not exceed threshold-max")
     if args.model_type == "lightgbm" and (args.num_leaves <= 1 or args.n_estimators <= 0):
@@ -26,12 +40,22 @@ def validate_train_args(args) -> None:
 
 def build_features_for(model_type, trajectories, show_progress):
     # 앙상블(1위 방법론)은 외삽-백테스트 등 물리 기반 특징까지 사용한다.
-    if model_type == "ensemble":
+    if model_type in {"ensemble", "weighted_ensemble"}:
         return build_feature_frame_advanced(trajectories, show_progress=show_progress)
     return build_feature_frame(trajectories, show_progress=show_progress)
 
 
+def weights_for_radius(radius: float) -> tuple[float, float, float]:
+    for supported_radius, weights in WEIGHTED_ENSEMBLE_WEIGHTS_BY_RADIUS.items():
+        if np.isclose(radius, supported_radius, rtol=0.0, atol=1e-9):
+            return weights
+    supported = ", ".join(f"{radius:.2f}" for radius in WEIGHTED_ENSEMBLE_WEIGHTS_BY_RADIUS)
+    raise ValueError(f"weighted_ensemble supports only radii: {supported}")
+
+
 def make_model_config(args):
+    if args.model_type == "weighted_ensemble":
+        return WeightedEnsembleConfig(weights=weights_for_radius(args.radius))
     if args.model_type == "ensemble":
         return ENSEMBLE_MODEL_DEFAULTS
     if args.model_type == "logistic":
@@ -50,7 +74,7 @@ def make_model_config(args):
     )
 
 
-def select_threshold(args, y_valid, probabilities):
+def select_threshold(args, labels, probabilities):
     if args.threshold is not None:
         return args.threshold, None
     candidates = make_threshold_candidates(
@@ -58,8 +82,58 @@ def select_threshold(args, y_valid, probabilities):
         args.threshold_max,
         args.threshold_step,
     )
-    result = find_best_threshold(y_valid.to_numpy(), probabilities, candidates)
+    result = find_best_threshold(labels.to_numpy(), probabilities, candidates)
     return result.threshold, result
+
+
+def validate_oof_labels(labels: pd.Series, cv_folds: int) -> None:
+    counts = labels.value_counts()
+    if len(counts) != 2:
+        raise ValueError("OOF threshold selection requires both hit and miss labels")
+    smallest_class = int(counts.min())
+    if cv_folds > smallest_class:
+        raise ValueError(
+            f"cv-folds={cv_folds} exceeds the smallest class count ({smallest_class})"
+        )
+
+
+def make_oof_probabilities(
+    model_type: str,
+    model_config: (
+        LightGBMConfig
+        | LogisticRegressionConfig
+        | EnsembleConfig
+        | WeightedEnsembleConfig
+    ),
+    features: pd.DataFrame,
+    labels: pd.Series,
+    seed: int,
+    cv_folds: int,
+    show_progress: bool,
+) -> np.ndarray:
+    validate_oof_labels(labels, cv_folds)
+    splitter = StratifiedKFold(n_splits=cv_folds, shuffle=True, random_state=seed)
+    probabilities = np.empty(len(labels), dtype=float)
+    fold_iterator = tqdm(
+        splitter.split(features, labels),
+        total=cv_folds,
+        desc="OOF threshold folds",
+        unit="fold",
+        disable=not show_progress,
+    )
+    for fold_index, (fit_indices, valid_indices) in enumerate(fold_iterator, start=1):
+        model = train_model(
+            create_model(model_type, model_config, seed),
+            features.iloc[fit_indices],
+            labels.iloc[fit_indices],
+            show_progress=show_progress,
+            description=f"Training OOF fold {fold_index}/{cv_folds}",
+        )
+        probabilities[valid_indices] = predict_hit_probabilities(
+            model,
+            features.iloc[valid_indices],
+        )
+    return probabilities
 
 
 def main() -> None:
@@ -85,40 +159,31 @@ def main() -> None:
     dataset = feature_frame.merge(labels, on="id", validate="one_to_one")
     feature_columns = [column for column in feature_frame.columns if column != "id"]
     label_column = radius_to_label(args.radius)
-
-    fit_indices, valid_indices = split_train_validation(
-        dataset,
-        valid_size=args.valid_size,
-        seed=args.seed,
-    )
-    fit_dataset = dataset.iloc[fit_indices]
-    valid_dataset = dataset.iloc[valid_indices]
-    x_train = fit_dataset.loc[:, feature_columns]
-    y_train = fit_dataset[label_column]
-    x_valid = valid_dataset.loc[:, feature_columns]
-    y_valid = valid_dataset[label_column]
+    x_all = dataset.loc[:, feature_columns]
+    y_all = dataset[label_column]
 
     model_config = make_model_config(args)
-    validation_model = train_model(
-        create_model(args.model_type, model_config, args.seed),
-        x_train,
-        y_train,
+    oof_probabilities = make_oof_probabilities(
+        args.model_type,
+        model_config,
+        x_all,
+        y_all,
+        seed=args.seed,
+        cv_folds=args.cv_folds,
         show_progress=args.progress,
-        description="Training validation model",
     )
-    valid_probabilities = predict_hit_probabilities(validation_model, x_valid)
-    threshold, threshold_result = select_threshold(args, y_valid, valid_probabilities)
-    metrics = evaluate_predictions(y_valid.to_numpy(), valid_probabilities, threshold)
+    threshold, threshold_result = select_threshold(args, y_all, oof_probabilities)
+    metrics = evaluate_predictions(y_all.to_numpy(), oof_probabilities, threshold)
     metrics.update(
         {
             "radius": args.radius,
             "seed": args.seed,
-            "valid_size": args.valid_size,
-            "train_samples": len(fit_dataset),
-            "validation_samples": len(valid_dataset),
+            "validation_method": "oof",
+            "cv_folds": args.cv_folds,
+            "oof_samples": len(dataset),
             "dataset_samples": len(dataset),
             "dataset_id_sha256": metadata["split_id_sha256"]["train"],
-            "threshold_source": "argument" if args.threshold is not None else "validation_search",
+            "threshold_source": "argument" if args.threshold is not None else "oof_search",
             "model_type": args.model_type,
         }
     )
@@ -138,6 +203,8 @@ def main() -> None:
         "dataset_source_id_sha256": metadata["source_id_sha256"],
         "source": metrics["threshold_source"],
         "model_type": args.model_type,
+        "validation_method": metrics["validation_method"],
+        "cv_folds": args.cv_folds,
     }
     if threshold_result is not None:
         threshold_artifact["candidate_hit_score"] = threshold_result.hit_score
@@ -147,7 +214,7 @@ def main() -> None:
     save_json(threshold_artifact, output_paths.threshold)
     save_json(metrics, output_paths.metrics)
 
-    print(f"Validation metrics: {metrics}")
+    print(f"OOF validation metrics: {metrics}")
     print(f"Saved training artifacts to {output_paths.model.parent}")
 
 

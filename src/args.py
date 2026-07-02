@@ -67,7 +67,13 @@ def build_train_parser() -> argparse.ArgumentParser:
         help="Directory for all model artifacts and training results.",
     )
     parser.add_argument("--radius", type=_supported_radius, default=TRAINING_DEFAULTS.radius)
-    parser.add_argument("--valid-size", type=_probability, default=TRAINING_DEFAULTS.valid_size)
+    parser.add_argument(
+        "--valid-size",
+        type=_probability,
+        default=TRAINING_DEFAULTS.valid_size,
+        help="Deprecated; threshold selection now uses OOF folds.",
+    )
+    parser.add_argument("--cv-folds", type=_positive_int, default=TRAINING_DEFAULTS.cv_folds)
     parser.add_argument("--seed", type=int, default=TRAINING_DEFAULTS.seed)
     parser.add_argument("--threshold", type=_probability)
     parser.add_argument("--threshold-min", type=_probability, default=TRAINING_DEFAULTS.threshold_min)

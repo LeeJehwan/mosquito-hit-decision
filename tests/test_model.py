@@ -7,7 +7,7 @@ from lightgbm import LGBMClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from src.config import EnsembleConfig, LightGBMConfig, LogisticRegressionConfig
+from src.config import EnsembleConfig, LightGBMConfig, LogisticRegressionConfig, WeightedEnsembleConfig
 from src.model import (
     SoftVotingEnsemble,
     create_model,
@@ -28,6 +28,17 @@ def small_ensemble_config() -> EnsembleConfig:
     )
 
 
+def small_weighted_ensemble_config() -> WeightedEnsembleConfig:
+    return WeightedEnsembleConfig(
+        n_estimators=2,
+        hist_max_iter=5,
+        mlp_hidden=(8,),
+        mlp_max_iter=50,
+        mlp_early_stopping=False,
+        weights=(0.5, 0.25, 0.25),
+    )
+
+
 def make_binary_dataset() -> tuple[pd.DataFrame, pd.Series]:
     features = pd.DataFrame(
         {
@@ -43,6 +54,7 @@ def test_model_factory_creates_supported_model_types() -> None:
     lightgbm = create_model("lightgbm", LightGBMConfig(n_estimators=2), seed=42)
     logistic = create_model("logistic", LogisticRegressionConfig(max_iter=200), seed=42)
     ensemble = create_model("ensemble", small_ensemble_config(), seed=42)
+    weighted = create_model("weighted_ensemble", small_weighted_ensemble_config(), seed=42)
 
     assert isinstance(lightgbm, LGBMClassifier)
     assert isinstance(logistic, Pipeline)
@@ -50,6 +62,9 @@ def test_model_factory_creates_supported_model_types() -> None:
     assert logistic.named_steps["classifier"].class_weight is None
     assert isinstance(ensemble, SoftVotingEnsemble)
     assert len(ensemble.estimators) == 3
+    assert isinstance(weighted, SoftVotingEnsemble)
+    assert len(weighted.estimators) == 3
+    np.testing.assert_allclose(weighted.weights, [0.5, 0.25, 0.25])
 
 
 @pytest.mark.parametrize(
@@ -58,12 +73,13 @@ def test_model_factory_creates_supported_model_types() -> None:
         ("lightgbm", LightGBMConfig(n_estimators=2)),
         ("logistic", LogisticRegressionConfig(max_iter=200)),
         ("ensemble", small_ensemble_config()),
+        ("weighted_ensemble", small_weighted_ensemble_config()),
     ],
 )
 def test_models_predict_probabilities_and_survive_round_trip(
     tmp_path: Path,
     model_type: str,
-    config: LightGBMConfig | LogisticRegressionConfig,
+    config: LightGBMConfig | LogisticRegressionConfig | EnsembleConfig | WeightedEnsembleConfig,
 ) -> None:
     features, labels = make_binary_dataset()
     model = train_model(create_model(model_type, config, seed=42), features, labels)
@@ -81,3 +97,6 @@ def test_models_predict_probabilities_and_survive_round_trip(
 def test_model_factory_rejects_mismatched_configuration() -> None:
     with pytest.raises(TypeError, match="requires LogisticRegressionConfig"):
         create_model("logistic", LightGBMConfig(), seed=42)
+
+    with pytest.raises(TypeError, match="requires WeightedEnsembleConfig"):
+        create_model("weighted_ensemble", EnsembleConfig(), seed=42)

@@ -1,0 +1,1812 @@
+[
+  {
+    "radius": 0.01,
+    "label": "hit_r001",
+    "methods": [
+      {
+        "method": "LightGBM + adv",
+        "key": "lgbm",
+        "threshold": 0.735,
+        "oof_mean_hit": 0.233875,
+        "test_mean_hit": 0.232,
+        "test_hit_score": 464,
+        "precision": 0.8530120481927711,
+        "recall": 0.6113989637305699,
+        "auroc": 0.829120155563487,
+        "shots": 830,
+        "seconds": 0.0
+      },
+      {
+        "method": "HistGBM + adv",
+        "key": "hist",
+        "threshold": 0.75,
+        "oof_mean_hit": 0.228375,
+        "test_mean_hit": 0.241,
+        "test_hit_score": 482,
+        "precision": 0.8623629719853837,
+        "recall": 0.6113989637305699,
+        "auroc": 0.8276196981444788,
+        "shots": 821,
+        "seconds": 0.0
+      },
+      {
+        "method": "MLP + adv",
+        "key": "mlp",
+        "threshold": 0.6950000000000001,
+        "oof_mean_hit": 0.21325,
+        "test_mean_hit": 0.2075,
+        "test_hit_score": 415,
+        "precision": 0.8404522613065326,
+        "recall": 0.5777202072538861,
+        "auroc": 0.8175687872037545,
+        "shots": 796,
+        "seconds": 0.0
+      }
+    ],
+    "best_blend": {
+      "weights": {
+        "lgbm": 0.5,
+        "hist": 0.1,
+        "mlp": 0.4
+      },
+      "threshold": 0.68,
+      "oof_mean_hit": 0.2335,
+      "test_mean_hit": 0.249,
+      "test_hit_score": 498,
+      "precision": 0.856815578465063,
+      "recall": 0.6459412780656304,
+      "auroc": 0.8322205539077532,
+      "shots": 873
+    },
+    "top_blends": [
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.1,
+          "mlp": 0.4
+        },
+        "threshold": 0.68,
+        "oof_mean_hit": 0.2335,
+        "test_mean_hit": 0.249,
+        "test_hit_score": 498,
+        "precision": 0.856815578465063,
+        "recall": 0.6459412780656304,
+        "auroc": 0.8322205539077532,
+        "shots": 873
+      },
+      {
+        "weights": {
+          "lgbm": 0.4,
+          "hist": 0.15,
+          "mlp": 0.45
+        },
+        "threshold": 0.68,
+        "oof_mean_hit": 0.233375,
+        "test_mean_hit": 0.248,
+        "test_hit_score": 496,
+        "precision": 0.8598130841121495,
+        "recall": 0.6355785837651122,
+        "auroc": 0.8320533805931268,
+        "shots": 856
+      },
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.1,
+          "mlp": 0.45
+        },
+        "threshold": 0.685,
+        "oof_mean_hit": 0.234,
+        "test_mean_hit": 0.247,
+        "test_hit_score": 494,
+        "precision": 0.8622327790973872,
+        "recall": 0.6269430051813472,
+        "auroc": 0.8320246637047247,
+        "shots": 842
+      },
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.4,
+          "mlp": 0.15
+        },
+        "threshold": 0.715,
+        "oof_mean_hit": 0.23475,
+        "test_mean_hit": 0.2465,
+        "test_hit_score": 493,
+        "precision": 0.8620689655172413,
+        "recall": 0.6260794473229706,
+        "auroc": 0.8319590251026628,
+        "shots": 841
+      },
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.3,
+          "mlp": 0.2
+        },
+        "threshold": 0.725,
+        "oof_mean_hit": 0.234375,
+        "test_mean_hit": 0.2465,
+        "test_hit_score": 493,
+        "precision": 0.8685503685503686,
+        "recall": 0.6105354058721935,
+        "auroc": 0.8323764455876501,
+        "shots": 814
+      },
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.3,
+          "mlp": 0.25
+        },
+        "threshold": 0.725,
+        "oof_mean_hit": 0.2355,
+        "test_mean_hit": 0.246,
+        "test_hit_score": 492,
+        "precision": 0.8706467661691543,
+        "recall": 0.6044905008635578,
+        "auroc": 0.8325036203791449,
+        "shots": 804
+      },
+      {
+        "weights": {
+          "lgbm": 0.7,
+          "hist": 0.05,
+          "mlp": 0.25
+        },
+        "threshold": 0.715,
+        "oof_mean_hit": 0.2355,
+        "test_mean_hit": 0.246,
+        "test_hit_score": 492,
+        "precision": 0.8669108669108669,
+        "recall": 0.613126079447323,
+        "auroc": 0.8320646622278562,
+        "shots": 819
+      },
+      {
+        "weights": {
+          "lgbm": 0.25,
+          "hist": 0.25,
+          "mlp": 0.5
+        },
+        "threshold": 0.685,
+        "oof_mean_hit": 0.233125,
+        "test_mean_hit": 0.2455,
+        "test_hit_score": 491,
+        "precision": 0.8624401913875598,
+        "recall": 0.6226252158894646,
+        "auroc": 0.8314780172219282,
+        "shots": 836
+      },
+      {
+        "weights": {
+          "lgbm": 0.35,
+          "hist": 0.4,
+          "mlp": 0.25
+        },
+        "threshold": 0.725,
+        "oof_mean_hit": 0.235,
+        "test_mean_hit": 0.2455,
+        "test_hit_score": 491,
+        "precision": 0.8689740420271941,
+        "recall": 0.6070811744386874,
+        "auroc": 0.8323436262866191,
+        "shots": 809
+      },
+      {
+        "weights": {
+          "lgbm": 0.4,
+          "hist": 0.35,
+          "mlp": 0.25
+        },
+        "threshold": 0.725,
+        "oof_mean_hit": 0.235375,
+        "test_mean_hit": 0.2455,
+        "test_hit_score": 491,
+        "precision": 0.869727047146402,
+        "recall": 0.6053540587219344,
+        "auroc": 0.8324390073802403,
+        "shots": 806
+      },
+      {
+        "weights": {
+          "lgbm": 0.55,
+          "hist": 0.05,
+          "mlp": 0.4
+        },
+        "threshold": 0.695,
+        "oof_mean_hit": 0.234,
+        "test_mean_hit": 0.2455,
+        "test_hit_score": 491,
+        "precision": 0.8645707376058042,
+        "recall": 0.6174438687392055,
+        "auroc": 0.832068764640485,
+        "shots": 827
+      },
+      {
+        "weights": {
+          "lgbm": 0.15,
+          "hist": 0.45,
+          "mlp": 0.4
+        },
+        "threshold": 0.68,
+        "oof_mean_hit": 0.231875,
+        "test_mean_hit": 0.245,
+        "test_hit_score": 490,
+        "precision": 0.8522727272727273,
+        "recall": 0.6476683937823834,
+        "auroc": 0.8318533879774694,
+        "shots": 880
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.4,
+          "mlp": 0.3
+        },
+        "threshold": 0.72,
+        "oof_mean_hit": 0.234,
+        "test_mean_hit": 0.245,
+        "test_hit_score": 490,
+        "precision": 0.8688118811881188,
+        "recall": 0.6062176165803109,
+        "auroc": 0.8324400329833976,
+        "shots": 808
+      },
+      {
+        "weights": {
+          "lgbm": 0.4,
+          "hist": 0.1,
+          "mlp": 0.5
+        },
+        "threshold": 0.675,
+        "oof_mean_hit": 0.233125,
+        "test_mean_hit": 0.245,
+        "test_hit_score": 490,
+        "precision": 0.8568102444703143,
+        "recall": 0.6355785837651122,
+        "auroc": 0.8315744239187066,
+        "shots": 859
+      },
+      {
+        "weights": {
+          "lgbm": 0.6,
+          "hist": 0.15,
+          "mlp": 0.25
+        },
+        "threshold": 0.72,
+        "oof_mean_hit": 0.236375,
+        "test_mean_hit": 0.245,
+        "test_hit_score": 490,
+        "precision": 0.8680641183723797,
+        "recall": 0.6079447322970639,
+        "auroc": 0.8323456774929335,
+        "shots": 811
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.45,
+          "mlp": 0.25
+        },
+        "threshold": 0.725,
+        "oof_mean_hit": 0.234375,
+        "test_mean_hit": 0.2445,
+        "test_hit_score": 489,
+        "precision": 0.8679012345679012,
+        "recall": 0.6070811744386874,
+        "auroc": 0.8322964485413871,
+        "shots": 810
+      },
+      {
+        "weights": {
+          "lgbm": 0.55,
+          "hist": 0.0,
+          "mlp": 0.45
+        },
+        "threshold": 0.695,
+        "oof_mean_hit": 0.233625,
+        "test_mean_hit": 0.2445,
+        "test_hit_score": 489,
+        "precision": 0.864963503649635,
+        "recall": 0.6139896373056994,
+        "auroc": 0.8317087779323019,
+        "shots": 822
+      },
+      {
+        "weights": {
+          "lgbm": 0.65,
+          "hist": 0.1,
+          "mlp": 0.25
+        },
+        "threshold": 0.72,
+        "oof_mean_hit": 0.236125,
+        "test_mean_hit": 0.2445,
+        "test_hit_score": 489,
+        "precision": 0.8679012345679012,
+        "recall": 0.6070811744386874,
+        "auroc": 0.8322215795109105,
+        "shots": 810
+      },
+      {
+        "weights": {
+          "lgbm": 0.15,
+          "hist": 0.4,
+          "mlp": 0.45
+        },
+        "threshold": 0.67,
+        "oof_mean_hit": 0.23375,
+        "test_mean_hit": 0.244,
+        "test_hit_score": 488,
+        "precision": 0.8500563697857948,
+        "recall": 0.6511226252158895,
+        "auroc": 0.8317498020585906,
+        "shots": 887
+      },
+      {
+        "weights": {
+          "lgbm": 0.2,
+          "hist": 0.35,
+          "mlp": 0.45
+        },
+        "threshold": 0.715,
+        "oof_mean_hit": 0.23325,
+        "test_mean_hit": 0.244,
+        "test_hit_score": 488,
+        "precision": 0.8723135271807838,
+        "recall": 0.5958549222797928,
+        "auroc": 0.8319364618332041,
+        "shots": 791
+      }
+    ]
+  },
+  {
+    "radius": 0.02,
+    "label": "hit_r002",
+    "methods": [
+      {
+        "method": "LightGBM + adv",
+        "key": "lgbm",
+        "threshold": 0.675,
+        "oof_mean_hit": 0.65475,
+        "test_mean_hit": 0.659,
+        "test_hit_score": 1318,
+        "precision": 0.9114206128133705,
+        "recall": 0.9528246942341293,
+        "auroc": 0.8226671139365027,
+        "shots": 1795,
+        "seconds": 0.0
+      },
+      {
+        "method": "HistGBM + adv",
+        "key": "hist",
+        "threshold": 0.71,
+        "oof_mean_hit": 0.658,
+        "test_mean_hit": 0.6505,
+        "test_hit_score": 1301,
+        "precision": 0.9101628298708591,
+        "recall": 0.9440885264997088,
+        "auroc": 0.818701367122786,
+        "shots": 1781,
+        "seconds": 0.0
+      },
+      {
+        "method": "MLP + adv",
+        "key": "mlp",
+        "threshold": 0.665,
+        "oof_mean_hit": 0.643875,
+        "test_mean_hit": 0.642,
+        "test_hit_score": 1284,
+        "precision": 0.9024793388429752,
+        "recall": 0.9539895165987187,
+        "auroc": 0.7991051859291105,
+        "shots": 1815,
+        "seconds": 0.0
+      }
+    ],
+    "best_blend": {
+      "weights": {
+        "lgbm": 0.5,
+        "hist": 0.2,
+        "mlp": 0.3
+      },
+      "threshold": 0.665,
+      "oof_mean_hit": 0.656875,
+      "test_mean_hit": 0.665,
+      "test_hit_score": 1330,
+      "precision": 0.9116022099447514,
+      "recall": 0.9609784507862551,
+      "auroc": 0.8291930003642642,
+      "shots": 1810
+    },
+    "top_blends": [
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.2,
+          "mlp": 0.35
+        },
+        "threshold": 0.68,
+        "oof_mean_hit": 0.656,
+        "test_mean_hit": 0.665,
+        "test_hit_score": 1330,
+        "precision": 0.9120088544548977,
+        "recall": 0.9598136284216657,
+        "auroc": 0.8293020738365666,
+        "shots": 1807
+      },
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.1,
+          "mlp": 0.4
+        },
+        "threshold": 0.685,
+        "oof_mean_hit": 0.656125,
+        "test_mean_hit": 0.665,
+        "test_hit_score": 1330,
+        "precision": 0.9124168514412417,
+        "recall": 0.9586488060570763,
+        "auroc": 0.8293638135378701,
+        "shots": 1804
+      },
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.2,
+          "mlp": 0.3
+        },
+        "threshold": 0.665,
+        "oof_mean_hit": 0.656875,
+        "test_mean_hit": 0.665,
+        "test_hit_score": 1330,
+        "precision": 0.9116022099447514,
+        "recall": 0.9609784507862551,
+        "auroc": 0.8291930003642642,
+        "shots": 1810
+      },
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.05,
+          "mlp": 0.45
+        },
+        "threshold": 0.675,
+        "oof_mean_hit": 0.655375,
+        "test_mean_hit": 0.6645,
+        "test_hit_score": 1329,
+        "precision": 0.9119601328903655,
+        "recall": 0.959231217239371,
+        "auroc": 0.8290242451807017,
+        "shots": 1806
+      },
+      {
+        "weights": {
+          "lgbm": 0.65,
+          "hist": 0.0,
+          "mlp": 0.35
+        },
+        "threshold": 0.665,
+        "oof_mean_hit": 0.655625,
+        "test_mean_hit": 0.6645,
+        "test_hit_score": 1329,
+        "precision": 0.9107438016528926,
+        "recall": 0.9627256843331392,
+        "auroc": 0.8289892593499633,
+        "shots": 1815
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.3,
+          "mlp": 0.4
+        },
+        "threshold": 0.685,
+        "oof_mean_hit": 0.656625,
+        "test_mean_hit": 0.6635,
+        "test_hit_score": 1327,
+        "precision": 0.9118625277161863,
+        "recall": 0.9580663948747816,
+        "auroc": 0.8287896343157491,
+        "shots": 1804
+      },
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.15,
+          "mlp": 0.4
+        },
+        "threshold": 0.695,
+        "oof_mean_hit": 0.656375,
+        "test_mean_hit": 0.6635,
+        "test_hit_score": 1327,
+        "precision": 0.9122709605774569,
+        "recall": 0.9569015725101921,
+        "auroc": 0.8294461331396079,
+        "shots": 1801
+      },
+      {
+        "weights": {
+          "lgbm": 0.55,
+          "hist": 0.0,
+          "mlp": 0.45
+        },
+        "threshold": 0.68,
+        "oof_mean_hit": 0.655625,
+        "test_mean_hit": 0.6635,
+        "test_hit_score": 1327,
+        "precision": 0.9118625277161863,
+        "recall": 0.9580663948747816,
+        "auroc": 0.8290448250811362,
+        "shots": 1804
+      },
+      {
+        "weights": {
+          "lgbm": 0.6,
+          "hist": 0.05,
+          "mlp": 0.35
+        },
+        "threshold": 0.695,
+        "oof_mean_hit": 0.656,
+        "test_mean_hit": 0.6635,
+        "test_hit_score": 1327,
+        "precision": 0.9135044642857143,
+        "recall": 0.953407105416424,
+        "auroc": 0.8291497825733518,
+        "shots": 1792
+      },
+      {
+        "weights": {
+          "lgbm": 0.7,
+          "hist": 0.0,
+          "mlp": 0.3
+        },
+        "threshold": 0.655,
+        "oof_mean_hit": 0.65575,
+        "test_mean_hit": 0.6635,
+        "test_hit_score": 1327,
+        "precision": 0.9106453392167678,
+        "recall": 0.9615608619685498,
+        "auroc": 0.8287381845646631,
+        "shots": 1813
+      },
+      {
+        "weights": {
+          "lgbm": 0.35,
+          "hist": 0.2,
+          "mlp": 0.45
+        },
+        "threshold": 0.69,
+        "oof_mean_hit": 0.65575,
+        "test_mean_hit": 0.663,
+        "test_hit_score": 1326,
+        "precision": 0.9118136439267887,
+        "recall": 0.9574839836924869,
+        "auroc": 0.8292773779560456,
+        "shots": 1803
+      },
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.1,
+          "mlp": 0.45
+        },
+        "threshold": 0.685,
+        "oof_mean_hit": 0.655375,
+        "test_mean_hit": 0.663,
+        "test_hit_score": 1326,
+        "precision": 0.9118136439267887,
+        "recall": 0.9574839836924869,
+        "auroc": 0.829201232324438,
+        "shots": 1803
+      },
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.15,
+          "mlp": 0.35
+        },
+        "threshold": 0.69,
+        "oof_mean_hit": 0.65625,
+        "test_mean_hit": 0.663,
+        "test_hit_score": 1326,
+        "precision": 0.9126321647189761,
+        "recall": 0.9551543389633081,
+        "auroc": 0.8293350016772618,
+        "shots": 1797
+      },
+      {
+        "weights": {
+          "lgbm": 0.35,
+          "hist": 0.3,
+          "mlp": 0.35
+        },
+        "threshold": 0.695,
+        "oof_mean_hit": 0.656875,
+        "test_mean_hit": 0.6625,
+        "test_hit_score": 1325,
+        "precision": 0.9125835189309577,
+        "recall": 0.9545719277810134,
+        "auroc": 0.8289110557283124,
+        "shots": 1796
+      },
+      {
+        "weights": {
+          "lgbm": 0.4,
+          "hist": 0.15,
+          "mlp": 0.45
+        },
+        "threshold": 0.68,
+        "oof_mean_hit": 0.65575,
+        "test_mean_hit": 0.6625,
+        "test_hit_score": 1325,
+        "precision": 0.9113573407202216,
+        "recall": 0.9580663948747816,
+        "auroc": 0.8293329436872184,
+        "shots": 1805
+      },
+      {
+        "weights": {
+          "lgbm": 0.4,
+          "hist": 0.3,
+          "mlp": 0.3
+        },
+        "threshold": 0.665,
+        "oof_mean_hit": 0.6565,
+        "test_mean_hit": 0.6625,
+        "test_hit_score": 1325,
+        "precision": 0.9109513274336283,
+        "recall": 0.959231217239371,
+        "auroc": 0.8289398675889207,
+        "shots": 1808
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.2,
+          "mlp": 0.5
+        },
+        "threshold": 0.625,
+        "oof_mean_hit": 0.65475,
+        "test_mean_hit": 0.662,
+        "test_hit_score": 1324,
+        "precision": 0.9077007099945386,
+        "recall": 0.9679673849737915,
+        "auroc": 0.8285858933014483,
+        "shots": 1831
+      },
+      {
+        "weights": {
+          "lgbm": 0.35,
+          "hist": 0.15,
+          "mlp": 0.5
+        },
+        "threshold": 0.635,
+        "oof_mean_hit": 0.655,
+        "test_mean_hit": 0.662,
+        "test_hit_score": 1324,
+        "precision": 0.9084931506849315,
+        "recall": 0.9656377402446127,
+        "auroc": 0.8286579229529687,
+        "shots": 1825
+      },
+      {
+        "weights": {
+          "lgbm": 0.75,
+          "hist": 0.0,
+          "mlp": 0.25
+        },
+        "threshold": 0.665,
+        "oof_mean_hit": 0.655375,
+        "test_mean_hit": 0.662,
+        "test_hit_score": 1324,
+        "precision": 0.9113082039911308,
+        "recall": 0.9574839836924869,
+        "auroc": 0.8285035736997105,
+        "shots": 1804
+      },
+      {
+        "weights": {
+          "lgbm": 0.75,
+          "hist": 0.05,
+          "mlp": 0.2
+        },
+        "threshold": 0.655,
+        "oof_mean_hit": 0.655375,
+        "test_mean_hit": 0.662,
+        "test_hit_score": 1324,
+        "precision": 0.9109020475926951,
+        "recall": 0.9586488060570763,
+        "auroc": 0.8279438004078936,
+        "shots": 1807
+      }
+    ]
+  },
+  {
+    "radius": 0.03,
+    "label": "hit_r003",
+    "methods": [
+      {
+        "method": "LightGBM + adv",
+        "key": "lgbm",
+        "threshold": 0.795,
+        "oof_mean_hit": 0.77775,
+        "test_mean_hit": 0.7765,
+        "test_hit_score": 1553,
+        "precision": 0.9442359249329759,
+        "recall": 0.9638752052545156,
+        "auroc": 0.8409756035827394,
+        "shots": 1865,
+        "seconds": 0.0
+      },
+      {
+        "method": "HistGBM + adv",
+        "key": "hist",
+        "threshold": 0.775,
+        "oof_mean_hit": 0.7765,
+        "test_mean_hit": 0.787,
+        "test_hit_score": 1574,
+        "precision": 0.9457446808510638,
+        "recall": 0.9731800766283525,
+        "auroc": 0.8492838634357471,
+        "shots": 1880,
+        "seconds": 0.0
+      },
+      {
+        "method": "MLP + adv",
+        "key": "mlp",
+        "threshold": 0.65,
+        "oof_mean_hit": 0.7675,
+        "test_mean_hit": 0.7745,
+        "test_hit_score": 1549,
+        "precision": 0.9375655823714586,
+        "recall": 0.9781061850027367,
+        "auroc": 0.8499356157319085,
+        "shots": 1906,
+        "seconds": 0.0
+      }
+    ],
+    "best_blend": {
+      "weights": {
+        "lgbm": 0.25,
+        "hist": 0.3,
+        "mlp": 0.45
+      },
+      "threshold": 0.705,
+      "oof_mean_hit": 0.7795,
+      "test_mean_hit": 0.791,
+      "test_hit_score": 1582,
+      "precision": 0.9455314648334214,
+      "recall": 0.9786535303776683,
+      "auroc": 0.8595473801772385,
+      "shots": 1891
+    },
+    "top_blends": [
+      {
+        "weights": {
+          "lgbm": 0.25,
+          "hist": 0.3,
+          "mlp": 0.45
+        },
+        "threshold": 0.705,
+        "oof_mean_hit": 0.7795,
+        "test_mean_hit": 0.791,
+        "test_hit_score": 1582,
+        "precision": 0.9455314648334214,
+        "recall": 0.9786535303776683,
+        "auroc": 0.8595473801772385,
+        "shots": 1891
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.6,
+          "mlp": 0.3
+        },
+        "threshold": 0.75,
+        "oof_mean_hit": 0.780375,
+        "test_mean_hit": 0.7905,
+        "test_hit_score": 1581,
+        "precision": 0.9472843450479234,
+        "recall": 0.9737274220032841,
+        "auroc": 0.8595030863318684,
+        "shots": 1878
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.25,
+          "mlp": 0.45
+        },
+        "threshold": 0.71,
+        "oof_mean_hit": 0.7795,
+        "test_mean_hit": 0.7905,
+        "test_hit_score": 1581,
+        "precision": 0.9459459459459459,
+        "recall": 0.9770114942528736,
+        "auroc": 0.8592246678752559,
+        "shots": 1887
+      },
+      {
+        "weights": {
+          "lgbm": 0.35,
+          "hist": 0.2,
+          "mlp": 0.45
+        },
+        "threshold": 0.705,
+        "oof_mean_hit": 0.779125,
+        "test_mean_hit": 0.7905,
+        "test_hit_score": 1581,
+        "precision": 0.9455026455026455,
+        "recall": 0.9781061850027367,
+        "auroc": 0.8590063624945028,
+        "shots": 1890
+      },
+      {
+        "weights": {
+          "lgbm": 0.0,
+          "hist": 0.4,
+          "mlp": 0.6
+        },
+        "threshold": 0.67,
+        "oof_mean_hit": 0.778,
+        "test_mean_hit": 0.79,
+        "test_hit_score": 1580,
+        "precision": 0.9428421604614577,
+        "recall": 0.9841269841269841,
+        "auroc": 0.8602782286258466,
+        "shots": 1907
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.2,
+          "mlp": 0.5
+        },
+        "threshold": 0.695,
+        "oof_mean_hit": 0.778875,
+        "test_mean_hit": 0.79,
+        "test_hit_score": 1580,
+        "precision": 0.9441517386722866,
+        "recall": 0.9808429118773946,
+        "auroc": 0.859221504029158,
+        "shots": 1898
+      },
+      {
+        "weights": {
+          "lgbm": 0.0,
+          "hist": 0.6,
+          "mlp": 0.4
+        },
+        "threshold": 0.725,
+        "oof_mean_hit": 0.7805,
+        "test_mean_hit": 0.7895,
+        "test_hit_score": 1579,
+        "precision": 0.9458885941644563,
+        "recall": 0.9759168035030104,
+        "auroc": 0.8604743870839147,
+        "shots": 1885
+      },
+      {
+        "weights": {
+          "lgbm": 0.15,
+          "hist": 0.55,
+          "mlp": 0.3
+        },
+        "threshold": 0.75,
+        "oof_mean_hit": 0.781125,
+        "test_mean_hit": 0.7895,
+        "test_hit_score": 1579,
+        "precision": 0.947228144989339,
+        "recall": 0.9726327312534209,
+        "auroc": 0.8593986794106387,
+        "shots": 1876
+      },
+      {
+        "weights": {
+          "lgbm": 0.2,
+          "hist": 0.3,
+          "mlp": 0.5
+        },
+        "threshold": 0.715,
+        "oof_mean_hit": 0.778625,
+        "test_mean_hit": 0.7895,
+        "test_hit_score": 1579,
+        "precision": 0.9458885941644563,
+        "recall": 0.9759168035030104,
+        "auroc": 0.8598384540182427,
+        "shots": 1885
+      },
+      {
+        "weights": {
+          "lgbm": 0.2,
+          "hist": 0.35,
+          "mlp": 0.45
+        },
+        "threshold": 0.72,
+        "oof_mean_hit": 0.779875,
+        "test_mean_hit": 0.7895,
+        "test_hit_score": 1579,
+        "precision": 0.9458885941644563,
+        "recall": 0.9759168035030104,
+        "auroc": 0.8596992447899364,
+        "shots": 1885
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.45,
+          "mlp": 0.45
+        },
+        "threshold": 0.72,
+        "oof_mean_hit": 0.780125,
+        "test_mean_hit": 0.789,
+        "test_hit_score": 1578,
+        "precision": 0.9454160042395336,
+        "recall": 0.976464148877942,
+        "auroc": 0.8603035393946297,
+        "shots": 1887
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.5,
+          "mlp": 0.4
+        },
+        "threshold": 0.725,
+        "oof_mean_hit": 0.780625,
+        "test_mean_hit": 0.789,
+        "test_hit_score": 1578,
+        "precision": 0.9454160042395336,
+        "recall": 0.976464148877942,
+        "auroc": 0.8602149517038894,
+        "shots": 1887
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.0,
+          "mlp": 0.7
+        },
+        "threshold": 0.655,
+        "oof_mean_hit": 0.77525,
+        "test_mean_hit": 0.789,
+        "test_hit_score": 1578,
+        "precision": 0.9423480083857443,
+        "recall": 0.9841269841269841,
+        "auroc": 0.8577344963631589,
+        "shots": 1908
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.15,
+          "mlp": 0.55
+        },
+        "threshold": 0.7,
+        "oof_mean_hit": 0.778,
+        "test_mean_hit": 0.789,
+        "test_hit_score": 1578,
+        "precision": 0.9445324881141046,
+        "recall": 0.9786535303776683,
+        "auroc": 0.8592120124908644,
+        "shots": 1893
+      },
+      {
+        "weights": {
+          "lgbm": 0.0,
+          "hist": 0.65,
+          "mlp": 0.35
+        },
+        "threshold": 0.735,
+        "oof_mean_hit": 0.78025,
+        "test_mean_hit": 0.7885,
+        "test_hit_score": 1577,
+        "precision": 0.9458311205523101,
+        "recall": 0.9748221127531472,
+        "auroc": 0.860148510935834,
+        "shots": 1883
+      },
+      {
+        "weights": {
+          "lgbm": 0.05,
+          "hist": 0.55,
+          "mlp": 0.4
+        },
+        "threshold": 0.735,
+        "oof_mean_hit": 0.78025,
+        "test_mean_hit": 0.7885,
+        "test_hit_score": 1577,
+        "precision": 0.9458311205523101,
+        "recall": 0.9748221127531472,
+        "auroc": 0.8603889632392722,
+        "shots": 1883
+      },
+      {
+        "weights": {
+          "lgbm": 0.05,
+          "hist": 0.7,
+          "mlp": 0.25
+        },
+        "threshold": 0.755,
+        "oof_mean_hit": 0.7805,
+        "test_mean_hit": 0.7885,
+        "test_hit_score": 1577,
+        "precision": 0.9462765957446808,
+        "recall": 0.9737274220032841,
+        "auroc": 0.8593290747964856,
+        "shots": 1880
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.3,
+          "mlp": 0.6
+        },
+        "threshold": 0.67,
+        "oof_mean_hit": 0.777875,
+        "test_mean_hit": 0.7885,
+        "test_hit_score": 1577,
+        "precision": 0.9423177766124803,
+        "recall": 0.9835796387520526,
+        "auroc": 0.8599839909387448,
+        "shots": 1907
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.35,
+          "mlp": 0.55
+        },
+        "threshold": 0.695,
+        "oof_mean_hit": 0.77825,
+        "test_mean_hit": 0.7885,
+        "test_hit_score": 1577,
+        "precision": 0.9436248682824026,
+        "recall": 0.9802955665024631,
+        "auroc": 0.8602719009336509,
+        "shots": 1898
+      },
+      {
+        "weights": {
+          "lgbm": 0.15,
+          "hist": 0.45,
+          "mlp": 0.4
+        },
+        "threshold": 0.735,
+        "oof_mean_hit": 0.781125,
+        "test_mean_hit": 0.7885,
+        "test_hit_score": 1577,
+        "precision": 0.9462765957446808,
+        "recall": 0.9737274220032841,
+        "auroc": 0.8598511094026341,
+        "shots": 1880
+      }
+    ]
+  },
+  {
+    "radius": 0.04,
+    "label": "hit_r004",
+    "methods": [
+      {
+        "method": "LightGBM + adv",
+        "key": "lgbm",
+        "threshold": 0.875,
+        "oof_mean_hit": 0.84675,
+        "test_mean_hit": 0.8385,
+        "test_hit_score": 1677,
+        "precision": 0.959643605870021,
+        "recall": 0.9729011689691818,
+        "auroc": 0.8605612493020407,
+        "shots": 1908,
+        "seconds": 0.0
+      },
+      {
+        "method": "HistGBM + adv",
+        "key": "hist",
+        "threshold": 0.91,
+        "oof_mean_hit": 0.8465,
+        "test_mean_hit": 0.836,
+        "test_hit_score": 1672,
+        "precision": 0.9628055260361318,
+        "recall": 0.9628055260361318,
+        "auroc": 0.8533475026567482,
+        "shots": 1882,
+        "seconds": 0.0
+      },
+      {
+        "method": "MLP + adv",
+        "key": "mlp",
+        "threshold": 0.5650000000000001,
+        "oof_mean_hit": 0.834625,
+        "test_mean_hit": 0.822,
+        "test_hit_score": 1644,
+        "precision": 0.9438543247344461,
+        "recall": 0.9914984059511158,
+        "auroc": 0.8228984671914119,
+        "shots": 1977,
+        "seconds": 0.0
+      }
+    ],
+    "best_blend": {
+      "weights": {
+        "lgbm": 0.2,
+        "hist": 0.45,
+        "mlp": 0.35
+      },
+      "threshold": 0.775,
+      "oof_mean_hit": 0.844625,
+      "test_mean_hit": 0.845,
+      "test_hit_score": 1690,
+      "precision": 0.9585492227979274,
+      "recall": 0.9829968119022316,
+      "auroc": 0.8494254219276284,
+      "shots": 1930
+    },
+    "top_blends": [
+      {
+        "weights": {
+          "lgbm": 0.2,
+          "hist": 0.45,
+          "mlp": 0.35
+        },
+        "threshold": 0.775,
+        "oof_mean_hit": 0.844625,
+        "test_mean_hit": 0.845,
+        "test_hit_score": 1690,
+        "precision": 0.9585492227979274,
+        "recall": 0.9829968119022316,
+        "auroc": 0.8494254219276284,
+        "shots": 1930
+      },
+      {
+        "weights": {
+          "lgbm": 0.25,
+          "hist": 0.5,
+          "mlp": 0.25
+        },
+        "threshold": 0.78,
+        "oof_mean_hit": 0.8455,
+        "test_mean_hit": 0.8445,
+        "test_hit_score": 1689,
+        "precision": 0.9576227390180878,
+        "recall": 0.9845908607863975,
+        "auroc": 0.8522397737711414,
+        "shots": 1935
+      },
+      {
+        "weights": {
+          "lgbm": 0.25,
+          "hist": 0.55,
+          "mlp": 0.2
+        },
+        "threshold": 0.795,
+        "oof_mean_hit": 0.846125,
+        "test_mean_hit": 0.8445,
+        "test_hit_score": 1689,
+        "precision": 0.9580745341614907,
+        "recall": 0.9835281615302869,
+        "auroc": 0.8536266863596247,
+        "shots": 1932
+      },
+      {
+        "weights": {
+          "lgbm": 0.15,
+          "hist": 0.5,
+          "mlp": 0.35
+        },
+        "threshold": 0.795,
+        "oof_mean_hit": 0.844375,
+        "test_mean_hit": 0.844,
+        "test_hit_score": 1688,
+        "precision": 0.958961038961039,
+        "recall": 0.9808714133900106,
+        "auroc": 0.8490922026693566,
+        "shots": 1925
+      },
+      {
+        "weights": {
+          "lgbm": 0.2,
+          "hist": 0.55,
+          "mlp": 0.25
+        },
+        "threshold": 0.785,
+        "oof_mean_hit": 0.84525,
+        "test_mean_hit": 0.844,
+        "test_hit_score": 1688,
+        "precision": 0.9576008273009308,
+        "recall": 0.9840595111583422,
+        "auroc": 0.8519200634017183,
+        "shots": 1934
+      },
+      {
+        "weights": {
+          "lgbm": 0.05,
+          "hist": 0.55,
+          "mlp": 0.4
+        },
+        "threshold": 0.705,
+        "oof_mean_hit": 0.8445,
+        "test_mean_hit": 0.8435,
+        "test_hit_score": 1687,
+        "precision": 0.9553388090349076,
+        "recall": 0.9888416578108395,
+        "auroc": 0.8473360471190041,
+        "shots": 1948
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.55,
+          "mlp": 0.35
+        },
+        "threshold": 0.705,
+        "oof_mean_hit": 0.84425,
+        "test_mean_hit": 0.8435,
+        "test_hit_score": 1687,
+        "precision": 0.9553388090349076,
+        "recall": 0.9888416578108395,
+        "auroc": 0.8488445397071274,
+        "shots": 1948
+      },
+      {
+        "weights": {
+          "lgbm": 0.2,
+          "hist": 0.5,
+          "mlp": 0.3
+        },
+        "threshold": 0.77,
+        "oof_mean_hit": 0.845,
+        "test_mean_hit": 0.8435,
+        "test_hit_score": 1687,
+        "precision": 0.9571280991735537,
+        "recall": 0.9845908607863975,
+        "auroc": 0.8507673048866153,
+        "shots": 1936
+      },
+      {
+        "weights": {
+          "lgbm": 0.2,
+          "hist": 0.6,
+          "mlp": 0.2
+        },
+        "threshold": 0.795,
+        "oof_mean_hit": 0.846125,
+        "test_mean_hit": 0.8435,
+        "test_hit_score": 1687,
+        "precision": 0.9575788929125711,
+        "recall": 0.9835281615302869,
+        "auroc": 0.8532889641384032,
+        "shots": 1933
+      },
+      {
+        "weights": {
+          "lgbm": 0.35,
+          "hist": 0.45,
+          "mlp": 0.2
+        },
+        "threshold": 0.775,
+        "oof_mean_hit": 0.846125,
+        "test_mean_hit": 0.8435,
+        "test_hit_score": 1687,
+        "precision": 0.9571280991735537,
+        "recall": 0.9845908607863975,
+        "auroc": 0.8540634737657378,
+        "shots": 1936
+      },
+      {
+        "weights": {
+          "lgbm": 0.65,
+          "hist": 0.15,
+          "mlp": 0.2
+        },
+        "threshold": 0.855,
+        "oof_mean_hit": 0.846375,
+        "test_mean_hit": 0.8435,
+        "test_hit_score": 1687,
+        "precision": 0.9616998950682056,
+        "recall": 0.9739638682252922,
+        "auroc": 0.8558871737603342,
+        "shots": 1906
+      },
+      {
+        "weights": {
+          "lgbm": 0.75,
+          "hist": 0.25,
+          "mlp": 0.0
+        },
+        "threshold": 0.84,
+        "oof_mean_hit": 0.847,
+        "test_mean_hit": 0.8435,
+        "test_hit_score": 1687,
+        "precision": 0.9593961478396669,
+        "recall": 0.9792773645058448,
+        "auroc": 0.8604711900430482,
+        "shots": 1921
+      },
+      {
+        "weights": {
+          "lgbm": 0.0,
+          "hist": 0.6,
+          "mlp": 0.4
+        },
+        "threshold": 0.765,
+        "oof_mean_hit": 0.844375,
+        "test_mean_hit": 0.843,
+        "test_hit_score": 1686,
+        "precision": 0.9575569358178054,
+        "recall": 0.9829968119022316,
+        "auroc": 0.8471154019344729,
+        "shots": 1932
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.5,
+          "mlp": 0.4
+        },
+        "threshold": 0.71,
+        "oof_mean_hit": 0.8445,
+        "test_mean_hit": 0.843,
+        "test_hit_score": 1686,
+        "precision": 0.9553158705701078,
+        "recall": 0.9883103081827843,
+        "auroc": 0.8474891478592913,
+        "shots": 1947
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.6,
+          "mlp": 0.3
+        },
+        "threshold": 0.79,
+        "oof_mean_hit": 0.8445,
+        "test_mean_hit": 0.843,
+        "test_hit_score": 1686,
+        "precision": 0.9580093312597201,
+        "recall": 0.9819341126461212,
+        "auroc": 0.8499972982222301,
+        "shots": 1929
+      },
+      {
+        "weights": {
+          "lgbm": 0.1,
+          "hist": 0.65,
+          "mlp": 0.25
+        },
+        "threshold": 0.81,
+        "oof_mean_hit": 0.844875,
+        "test_mean_hit": 0.843,
+        "test_hit_score": 1686,
+        "precision": 0.9584631360332295,
+        "recall": 0.9808714133900106,
+        "auroc": 0.8512716367369729,
+        "shots": 1926
+      },
+      {
+        "weights": {
+          "lgbm": 0.2,
+          "hist": 0.4,
+          "mlp": 0.4
+        },
+        "threshold": 0.77,
+        "oof_mean_hit": 0.8445,
+        "test_mean_hit": 0.843,
+        "test_hit_score": 1686,
+        "precision": 0.9575569358178054,
+        "recall": 0.9829968119022316,
+        "auroc": 0.8481375745240367,
+        "shots": 1932
+      },
+      {
+        "weights": {
+          "lgbm": 0.25,
+          "hist": 0.3,
+          "mlp": 0.45
+        },
+        "threshold": 0.75,
+        "oof_mean_hit": 0.844,
+        "test_mean_hit": 0.843,
+        "test_hit_score": 1686,
+        "precision": 0.9571059431524548,
+        "recall": 0.9840595111583422,
+        "auroc": 0.8470793782308759,
+        "shots": 1935
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.25,
+          "mlp": 0.45
+        },
+        "threshold": 0.745,
+        "oof_mean_hit": 0.844375,
+        "test_mean_hit": 0.843,
+        "test_hit_score": 1686,
+        "precision": 0.9571059431524548,
+        "recall": 0.9840595111583422,
+        "auroc": 0.8474711360074929,
+        "shots": 1935
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.35,
+          "mlp": 0.35
+        },
+        "threshold": 0.795,
+        "oof_mean_hit": 0.84475,
+        "test_mean_hit": 0.843,
+        "test_hit_score": 1686,
+        "precision": 0.9589183567342694,
+        "recall": 0.9798087141339001,
+        "auroc": 0.8501594048884165,
+        "shots": 1923
+      }
+    ]
+  },
+  {
+    "radius": 0.05,
+    "label": "hit_r005",
+    "methods": [
+      {
+        "method": "LightGBM + adv",
+        "key": "lgbm",
+        "threshold": 0.96,
+        "oof_mean_hit": 0.88475,
+        "test_mean_hit": 0.876,
+        "test_hit_score": 1752,
+        "precision": 0.9741969457609269,
+        "recall": 0.9665621734587252,
+        "auroc": 0.8747721805059415,
+        "shots": 1899,
+        "seconds": 0.0
+      },
+      {
+        "method": "HistGBM + adv",
+        "key": "hist",
+        "threshold": 0.895,
+        "oof_mean_hit": 0.8835,
+        "test_mean_hit": 0.8835,
+        "test_hit_score": 1767,
+        "precision": 0.9710594315245478,
+        "recall": 0.9817136886102403,
+        "auroc": 0.8642864085927439,
+        "shots": 1935,
+        "seconds": 0.0
+      },
+      {
+        "method": "MLP + adv",
+        "key": "mlp",
+        "threshold": 0.725,
+        "oof_mean_hit": 0.877125,
+        "test_mean_hit": 0.8725,
+        "test_hit_score": 1745,
+        "precision": 0.967425025853154,
+        "recall": 0.977533960292581,
+        "auroc": 0.8450462929211926,
+        "shots": 1934,
+        "seconds": 0.0
+      }
+    ],
+    "best_blend": {
+      "weights": {
+        "lgbm": 0.35,
+        "hist": 0.55,
+        "mlp": 0.1
+      },
+      "threshold": 0.86,
+      "oof_mean_hit": 0.88475,
+      "test_mean_hit": 0.889,
+      "test_hit_score": 1778,
+      "precision": 0.9721649484536082,
+      "recall": 0.9853709508881923,
+      "auroc": 0.8721720006804209,
+      "shots": 1940
+    },
+    "top_blends": [
+      {
+        "weights": {
+          "lgbm": 0.35,
+          "hist": 0.55,
+          "mlp": 0.1
+        },
+        "threshold": 0.86,
+        "oof_mean_hit": 0.88475,
+        "test_mean_hit": 0.889,
+        "test_hit_score": 1778,
+        "precision": 0.9721649484536082,
+        "recall": 0.9853709508881923,
+        "auroc": 0.8721720006804209,
+        "shots": 1940
+      },
+      {
+        "weights": {
+          "lgbm": 0.55,
+          "hist": 0.3,
+          "mlp": 0.15
+        },
+        "threshold": 0.835,
+        "oof_mean_hit": 0.884625,
+        "test_mean_hit": 0.8885,
+        "test_hit_score": 1777,
+        "precision": 0.9712082262210797,
+        "recall": 0.9869383490073145,
+        "auroc": 0.8709994896843334,
+        "shots": 1945
+      },
+      {
+        "weights": {
+          "lgbm": 0.3,
+          "hist": 0.7,
+          "mlp": 0.0
+        },
+        "threshold": 0.865,
+        "oof_mean_hit": 0.884375,
+        "test_mean_hit": 0.888,
+        "test_hit_score": 1776,
+        "precision": 0.9711934156378601,
+        "recall": 0.9864158829676071,
+        "auroc": 0.8702157906247722,
+        "shots": 1944
+      },
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.5,
+          "mlp": 0.05
+        },
+        "threshold": 0.88,
+        "oof_mean_hit": 0.885,
+        "test_mean_hit": 0.888,
+        "test_hit_score": 1776,
+        "precision": 0.9721362229102167,
+        "recall": 0.9843260188087775,
+        "auroc": 0.8748633083035648,
+        "shots": 1938
+      },
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.35,
+          "mlp": 0.2
+        },
+        "threshold": 0.835,
+        "oof_mean_hit": 0.8845,
+        "test_mean_hit": 0.8875,
+        "test_hit_score": 1775,
+        "precision": 0.9716494845360825,
+        "recall": 0.9848484848484849,
+        "auroc": 0.8696811742120483,
+        "shots": 1940
+      },
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.3,
+          "mlp": 0.2
+        },
+        "threshold": 0.84,
+        "oof_mean_hit": 0.884875,
+        "test_mean_hit": 0.8875,
+        "test_hit_score": 1775,
+        "precision": 0.9716494845360825,
+        "recall": 0.9848484848484849,
+        "auroc": 0.869511068989818,
+        "shots": 1940
+      },
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.45,
+          "mlp": 0.05
+        },
+        "threshold": 0.89,
+        "oof_mean_hit": 0.884625,
+        "test_mean_hit": 0.8875,
+        "test_hit_score": 1775,
+        "precision": 0.9721218378936499,
+        "recall": 0.98380355276907,
+        "auroc": 0.8751002405773858,
+        "shots": 1937
+      },
+      {
+        "weights": {
+          "lgbm": 0.5,
+          "hist": 0.5,
+          "mlp": 0.0
+        },
+        "threshold": 0.88,
+        "oof_mean_hit": 0.88475,
+        "test_mean_hit": 0.8875,
+        "test_hit_score": 1775,
+        "precision": 0.9711785898095728,
+        "recall": 0.9858934169278997,
+        "auroc": 0.8726701659740954,
+        "shots": 1943
+      },
+      {
+        "weights": {
+          "lgbm": 0.6,
+          "hist": 0.4,
+          "mlp": 0.0
+        },
+        "threshold": 0.9,
+        "oof_mean_hit": 0.885,
+        "test_mean_hit": 0.8875,
+        "test_hit_score": 1775,
+        "precision": 0.9721218378936499,
+        "recall": 0.98380355276907,
+        "auroc": 0.8737333236130349,
+        "shots": 1937
+      },
+      {
+        "weights": {
+          "lgbm": 0.65,
+          "hist": 0.3,
+          "mlp": 0.05
+        },
+        "threshold": 0.895,
+        "oof_mean_hit": 0.884875,
+        "test_mean_hit": 0.8875,
+        "test_hit_score": 1775,
+        "precision": 0.9721218378936499,
+        "recall": 0.98380355276907,
+        "auroc": 0.8757928118393234,
+        "shots": 1937
+      },
+      {
+        "weights": {
+          "lgbm": 0.65,
+          "hist": 0.35,
+          "mlp": 0.0
+        },
+        "threshold": 0.9,
+        "oof_mean_hit": 0.885125,
+        "test_mean_hit": 0.8875,
+        "test_hit_score": 1775,
+        "precision": 0.9721218378936499,
+        "recall": 0.98380355276907,
+        "auroc": 0.8740431581249546,
+        "shots": 1937
+      },
+      {
+        "weights": {
+          "lgbm": 0.7,
+          "hist": 0.25,
+          "mlp": 0.05
+        },
+        "threshold": 0.895,
+        "oof_mean_hit": 0.884875,
+        "test_mean_hit": 0.8875,
+        "test_hit_score": 1775,
+        "precision": 0.9721218378936499,
+        "recall": 0.98380355276907,
+        "auroc": 0.8758960900099633,
+        "shots": 1937
+      },
+      {
+        "weights": {
+          "lgbm": 0.4,
+          "hist": 0.55,
+          "mlp": 0.05
+        },
+        "threshold": 0.875,
+        "oof_mean_hit": 0.884875,
+        "test_mean_hit": 0.887,
+        "test_hit_score": 1774,
+        "precision": 0.9716348633316142,
+        "recall": 0.9843260188087775,
+        "auroc": 0.8745899249106948,
+        "shots": 1939
+      },
+      {
+        "weights": {
+          "lgbm": 0.4,
+          "hist": 0.6,
+          "mlp": 0.0
+        },
+        "threshold": 0.88,
+        "oof_mean_hit": 0.884625,
+        "test_mean_hit": 0.887,
+        "test_hit_score": 1774,
+        "precision": 0.9711637487126673,
+        "recall": 0.9853709508881923,
+        "auroc": 0.8717528128113534,
+        "shots": 1942
+      },
+      {
+        "weights": {
+          "lgbm": 0.45,
+          "hist": 0.55,
+          "mlp": 0.0
+        },
+        "threshold": 0.885,
+        "oof_mean_hit": 0.884625,
+        "test_mean_hit": 0.887,
+        "test_hit_score": 1774,
+        "precision": 0.9711637487126673,
+        "recall": 0.9853709508881923,
+        "auroc": 0.8724210833272582,
+        "shots": 1942
+      },
+      {
+        "weights": {
+          "lgbm": 0.55,
+          "hist": 0.4,
+          "mlp": 0.05
+        },
+        "threshold": 0.895,
+        "oof_mean_hit": 0.885125,
+        "test_mean_hit": 0.887,
+        "test_hit_score": 1774,
+        "precision": 0.9721074380165289,
+        "recall": 0.9832810867293625,
+        "auroc": 0.8754890525139122,
+        "shots": 1936
+      },
+      {
+        "weights": {
+          "lgbm": 0.55,
+          "hist": 0.45,
+          "mlp": 0.0
+        },
+        "threshold": 0.895,
+        "oof_mean_hit": 0.885,
+        "test_mean_hit": 0.887,
+        "test_hit_score": 1774,
+        "precision": 0.9716348633316142,
+        "recall": 0.9843260188087775,
+        "auroc": 0.8732533838788851,
+        "shots": 1939
+      },
+      {
+        "weights": {
+          "lgbm": 0.6,
+          "hist": 0.25,
+          "mlp": 0.15
+        },
+        "threshold": 0.85,
+        "oof_mean_hit": 0.884625,
+        "test_mean_hit": 0.887,
+        "test_hit_score": 1774,
+        "precision": 0.9716348633316142,
+        "recall": 0.9843260188087775,
+        "auroc": 0.8709083618867098,
+        "shots": 1939
+      },
+      {
+        "weights": {
+          "lgbm": 0.65,
+          "hist": 0.1,
+          "mlp": 0.25
+        },
+        "threshold": 0.84,
+        "oof_mean_hit": 0.884,
+        "test_mean_hit": 0.887,
+        "test_hit_score": 1774,
+        "precision": 0.9716348633316142,
+        "recall": 0.9843260188087775,
+        "auroc": 0.8664430998031638,
+        "shots": 1939
+      },
+      {
+        "weights": {
+          "lgbm": 0.15,
+          "hist": 0.85,
+          "mlp": 0.0
+        },
+        "threshold": 0.87,
+        "oof_mean_hit": 0.884,
+        "test_mean_hit": 0.8865,
+        "test_hit_score": 1773,
+        "precision": 0.9711488923235445,
+        "recall": 0.9848484848484849,
+        "auroc": 0.8679072197516463,
+        "shots": 1941
+      }
+    ]
+  }
+]

@@ -11,7 +11,12 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from tqdm.auto import tqdm
 
-from src.config import EnsembleConfig, LightGBMConfig, LogisticRegressionConfig
+from src.config import (
+    EnsembleConfig,
+    LightGBMConfig,
+    LogisticRegressionConfig,
+    WeightedEnsembleConfig,
+)
 from src.data_io import ensure_parent_directory
 
 
@@ -22,8 +27,22 @@ class SoftVotingEnsemble:
     기존 train/infer 파이프라인을 그대로 사용한다.
     """
 
-    def __init__(self, estimators: list):
+    def __init__(self, estimators: list, weights: tuple[float, ...] | None = None):
         self.estimators = estimators
+        self.weights = self._validate_weights(weights)
+
+    def _validate_weights(self, weights: tuple[float, ...] | None) -> np.ndarray | None:
+        if weights is None:
+            return None
+        parsed = np.asarray(weights, dtype=float)
+        if parsed.shape != (len(self.estimators),):
+            raise ValueError("Ensemble weights must match the number of estimators")
+        if np.any(parsed < 0.0):
+            raise ValueError("Ensemble weights must be non-negative")
+        total = float(parsed.sum())
+        if total <= 0.0:
+            raise ValueError("At least one ensemble weight must be positive")
+        return parsed / total
 
     def fit(self, features: pd.DataFrame, labels: pd.Series) -> "SoftVotingEnsemble":
         for estimator in self.estimators:
@@ -31,10 +50,13 @@ class SoftVotingEnsemble:
         return self
 
     def predict_proba(self, features: pd.DataFrame) -> np.ndarray:
-        positive = np.mean(
-            [estimator.predict_proba(features)[:, 1] for estimator in self.estimators],
-            axis=0,
+        member_probabilities = np.column_stack(
+            [estimator.predict_proba(features)[:, 1] for estimator in self.estimators]
         )
+        if self.weights is None:
+            positive = np.mean(member_probabilities, axis=1)
+        else:
+            positive = member_probabilities @ self.weights
         return np.column_stack([1.0 - positive, positive])
 
 
@@ -68,6 +90,8 @@ def create_ensemble(config: EnsembleConfig, seed: int) -> SoftVotingEnsemble:
                     hidden_layer_sizes=tuple(config.mlp_hidden),
                     activation="relu",
                     alpha=config.mlp_alpha,
+                    batch_size=config.mlp_batch_size,
+                    learning_rate_init=config.mlp_learning_rate_init,
                     max_iter=config.mlp_max_iter,
                     early_stopping=config.mlp_early_stopping,
                     n_iter_no_change=15,
@@ -79,11 +103,25 @@ def create_ensemble(config: EnsembleConfig, seed: int) -> SoftVotingEnsemble:
     return SoftVotingEnsemble([lightgbm, hist, mlp])
 
 
+def create_weighted_ensemble(config: WeightedEnsembleConfig, seed: int) -> SoftVotingEnsemble:
+    ensemble = create_ensemble(config, seed)
+    return SoftVotingEnsemble(ensemble.estimators, weights=config.weights)
+
+
 def create_model(
     model_type: str,
-    config: LightGBMConfig | LogisticRegressionConfig | EnsembleConfig,
+    config: (
+        LightGBMConfig
+        | LogisticRegressionConfig
+        | EnsembleConfig
+        | WeightedEnsembleConfig
+    ),
     seed: int,
 ) -> Model:
+    if model_type == "weighted_ensemble":
+        if not isinstance(config, WeightedEnsembleConfig):
+            raise TypeError("Weighted ensemble requires WeightedEnsembleConfig")
+        return create_weighted_ensemble(config, seed)
     if model_type == "ensemble":
         if not isinstance(config, EnsembleConfig):
             raise TypeError("Ensemble requires EnsembleConfig")
